@@ -22,7 +22,7 @@ public class PropertyReader {
                 Logger.log(LogType.DEBUG,e);
             }
         } else {
-            Logger.log(LogType.ERROR,String.format("Resource \"%1$s\" could not be found", resourceName));
+            Logger.log(LogType.ERROR,String.format("Resource '%1$s' could not be found", resourceName));
         }
         return objProperties;
     }

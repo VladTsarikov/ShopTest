@@ -7,6 +7,8 @@ import org.testng.annotations.Test;
 import shop.enums.*;
 import shop.pages.*;
 import shop.pages.forms.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public class ShopTest extends BaseEntity {
 
@@ -19,9 +21,10 @@ public class ShopTest extends BaseEntity {
         new ProductsDialogForm().selectProduct(ProductsFormMenuItem.LAPTOPS);
 
         Logger.logStep(3,"SORTING BY HP AND DELL MAKERS...");
-        new ProductPage()
-                .selectMaker(LaptopMaker.DELL)
-                .selectMaker(LaptopMaker.HP);
+        List<LaptopMaker> makers = new ArrayList<>();
+        makers.add(LaptopMaker.DELL);
+        makers.add(LaptopMaker.HP);
+        new ProductPage().selectMakers(makers);
 
         Logger.logStep(4,"SAVING RESULTS COUNT IN APPEARING DIALOG FORM AND CLICK SHOW BUTTON...");
         ProductsCountDialogForm productsCountDialogForm = new ProductsCountDialogForm();

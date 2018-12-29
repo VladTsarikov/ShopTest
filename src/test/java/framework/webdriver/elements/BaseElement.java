@@ -1,9 +1,7 @@
 package framework.webdriver.elements;
 
 import framework.enums.LogType;
-import framework.utils.FileUtils;
-import framework.utils.Logger;
-import framework.utils.PropertyReader;
+import framework.utils.*;
 import framework.webdriver.BaseEntity;
 import framework.webdriver.Browser;
 import framework.webdriver.waitings.Waiting;
@@ -31,13 +29,13 @@ public class BaseElement extends BaseEntity {
         Waiting.waitForPageIsReady();
         waitingBeforeClick();
         assertIsPresent();
-        Logger.log(String.format("Clicking on %s", name));
+        logClickMessage();
         getElement().click();
     }
 
     public void clickAndWait(){
         click();
-        Logger.log(String.format("Clicking on %s", name));
+        logClickMessage();
         Waiting.waitForPageIsReady();
     }
 
@@ -45,7 +43,7 @@ public class BaseElement extends BaseEntity {
         Waiting.waitForPageIsReady();
         waitingBeforeClick();
         assertIsPresent();
-        Logger.log(String.format("Clicking on %s", name));
+        logClickMessage();
         String jSCode = FileUtils.readFromFile(new StringBuilder(filesProperty.getProperty("jsCommonFilesPath"))
                 .append(filesProperty.getProperty("jsClickFileName")).toString());
         ((JavascriptExecutor) Browser.getDriver()).executeScript(jSCode, getElement());
@@ -60,16 +58,15 @@ public class BaseElement extends BaseEntity {
 
     public void moveToElement(){
         Waiting.waitForPageIsReady();
-        Waiting.waitFor(ExpectedConditions.visibilityOf(getElement()));
-        Waiting.waitFor(ExpectedConditions.presenceOfElementLocated(locator));
-        Logger.log(String.format("Moving to %s", name));
+        waitingBeforeMoveToElement();
+        logMoveToElementMessage();
         new Actions(driver).moveToElement(getElement()).build().perform();
     }
 
     public void moveToElementViaJS() {
         Waiting.waitForPageIsReady();
-        Waiting.waitFor(ExpectedConditions.visibilityOf(getElement()));
-        Waiting.waitFor(ExpectedConditions.presenceOfElementLocated(locator));
+        waitingBeforeMoveToElement();
+        logMoveToElementMessage();
         String jSCode = FileUtils.readFromFile(new StringBuilder(filesProperty.getProperty("jsCommonFilesPath"))
                 .append(filesProperty.getProperty("jsMoveToElementFileName")).toString());
         ((JavascriptExecutor)driver).executeScript(jSCode, getElement());
@@ -105,6 +102,19 @@ public class BaseElement extends BaseEntity {
     private void waitingBeforeClick(){
         Waiting.waitFor(ExpectedConditions.visibilityOf(getElement()));
         Waiting.waitFor(ExpectedConditions.elementToBeClickable(getElement()));
+    }
+
+    private void waitingBeforeMoveToElement(){
+        Waiting.waitFor(ExpectedConditions.visibilityOf(getElement()));
+        Waiting.waitFor(ExpectedConditions.presenceOfElementLocated(locator));
+    }
+
+    private void logClickMessage(){
+        Logger.log(String.format("Clicking on %s", name));
+    }
+
+    private void logMoveToElementMessage(){
+        Logger.log(String.format("Moving to %s", name));
     }
 
     private void assertIsPresent(){

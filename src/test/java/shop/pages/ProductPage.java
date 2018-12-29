@@ -5,7 +5,6 @@ import framework.webdriver.BaseForm;
 import framework.webdriver.elements.*;
 import org.openqa.selenium.By;
 import shop.enums.*;
-
 import java.util.List;
 
 public class ProductPage extends BaseForm {

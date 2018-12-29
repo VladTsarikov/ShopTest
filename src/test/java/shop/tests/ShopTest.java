@@ -7,8 +7,7 @@ import org.testng.annotations.Test;
 import shop.enums.*;
 import shop.pages.*;
 import shop.pages.forms.*;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 public class ShopTest extends BaseEntity {
 

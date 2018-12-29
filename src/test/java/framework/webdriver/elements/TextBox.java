@@ -7,7 +7,7 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 
 public class TextBox extends BaseElement{
 
-    public TextBox(final By xpath,final String name){
+    public TextBox(final By xpath, final String name){
         super(xpath,name);
     }
 

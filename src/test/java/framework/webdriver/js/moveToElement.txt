@@ -1,0 +1,4 @@
+var fireOnThis = arguments[0];
+var evObj = document.createEvent('MouseEvents');
+evObj.initEvent( 'mouseover', true, true );
+fireOnThis.dispatchEvent(evObj);
